@@ -5,22 +5,31 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import hs.project.movie.Config
-import hs.project.movie.api.PostAPI
-import hs.project.movie.api.RetrofitClient
 import hs.project.movie.data.DailyBoxOffice
+import hs.project.movie.repo.PostRepository
 import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
 
-    private val postAPI = RetrofitClient.getInstance().create(PostAPI::class.java)
+    private val postRepository by lazy {
+        PostRepository()
+    }
 
     private val _posts = MutableLiveData<List<DailyBoxOffice>>()
     val posts : LiveData<List<DailyBoxOffice>>
         get() = _posts
 
     fun getPosts(targetDt:String) = viewModelScope.launch {
-        Log.d(this@MainViewModel.javaClass.name, postAPI.getPosts(secretKey = Config.SECRET_KEY, targetDt = targetDt).toString())
-        _posts.value = postAPI.getPosts(secretKey = Config.SECRET_KEY, targetDt = targetDt).boxOfficeResult.dailyBoxOfficeList
+
+        val response = postRepository.getPosts(targetDt)
+
+        Log.d(this@MainViewModel.javaClass.name, response.toString())
+
+        if (response.isSuccessful) {
+            _posts.postValue(postRepository.getPosts(targetDt = targetDt).body()?.boxOfficeResult?.dailyBoxOfficeList)
+        } else {
+            Log.e(this@MainViewModel.javaClass.name, response.message())
+        }
+
     }
 }
