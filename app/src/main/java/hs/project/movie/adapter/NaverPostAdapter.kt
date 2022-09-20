@@ -55,6 +55,9 @@ class NaverPostAdapter : RecyclerView.Adapter<NaverPostAdapter.PostHolder>() {
 
         fun bind(data: ResponseNaverSearchPostItem) {
             itemBinding.tvTitle.text = Html.fromHtml(data.title, Html.FROM_HTML_MODE_LEGACY)
+            itemBinding.tvDate.text = "개봉날짜 ${data.pubDate}년"
+            itemBinding.tvRating.text = "평점 ${data.userRating}"
+            itemBinding.tvDirector.text = data.director.replace("|","")
 
             itemBinding.ivThumb.load(data.image) {
                 crossfade(true)

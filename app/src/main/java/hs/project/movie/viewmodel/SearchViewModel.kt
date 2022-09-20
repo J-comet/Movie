@@ -24,7 +24,7 @@ class SearchViewModel : ViewModel() {
 
         val response = naverPostRepository.getPosts(search)
 
-        Log.d(this@SearchViewModel.javaClass.name, response.body().toString())
+        Log.d(this@SearchViewModel.javaClass.name, response.body()?.items.toString())
 
         if (response.isSuccessful) {
             _posts.postValue(naverPostRepository.getPosts(query = search).body()?.items)

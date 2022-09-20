@@ -1,5 +1,6 @@
 package hs.project.movie.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -52,7 +53,9 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
     private fun initRecyclerView(){
         naverPostAdapter.setOnItemClickListener(object : NaverPostAdapter.OnPostClickListener {
             override fun onItemClick(data: ResponseNaverSearchPostItem) {
-                Toast.makeText(this@SearchActivity, data.title, Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@SearchActivity, DetailSearchActivity::class.java)
+                intent.putExtra("detail_link", data.link)
+                startActivity(intent)
             }
         })
 
