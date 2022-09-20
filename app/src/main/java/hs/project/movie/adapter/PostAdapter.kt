@@ -1,8 +1,11 @@
 package hs.project.movie.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
@@ -11,62 +14,36 @@ import hs.project.movie.data.DailyBoxOffice
 import hs.project.movie.databinding.ItemPostBinding
 
 
-class PostAdapter : RecyclerView.Adapter<PostAdapter.PostHolder>() {
-
-    private var list = listOf<DailyBoxOffice>()
-
-    private lateinit var eventListener: OnPostClickListener
-
-    interface OnPostClickListener {
-        fun onItemClick(data: DailyBoxOffice)
-    }
-
-    fun setOnItemClickListener(listener: OnPostClickListener) {
-        this.eventListener = listener
-    }
+class PostAdapter : ListAdapter<DailyBoxOffice, PostAdapter.PostHolder>(
+    PostDiffUtilCallback()
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostHolder {
-        val binding = ItemPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PostHolder(binding, eventListener)
+        return PostHolder(
+            ItemPostBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: PostHolder, position: Int) {
-        holder.bind(list[position])
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount(): Int = list.size
-
-    fun setList(items: List<DailyBoxOffice>) {
-        if (!items.isNullOrEmpty()) {
-            list = items
-            notifyDataSetChanged()
-        }
-    }
-
-//    fun updateList(items: List<DailyBoxOffice>) {
-//        items.let {
-//            val diffResult = DiffUtil.calculateDiff(
-//                PostDiffUtil(this.list, items), true
-//            )
-//
-//            this.list.run {
-////                list.clear()
-//                addAll(items)
-//                diffResult.dispatchUpdatesTo(this@PostAdapter)
-//            }
-//        }
-//    }
-
-    inner class PostHolder(private val itemBinding: ItemPostBinding, listener: OnPostClickListener) :
+    inner class PostHolder(private val itemBinding: ItemPostBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
         init {
-            itemBinding.root.setOnClickListener {
-                listener.onItemClick(list[adapterPosition])
+            itemBinding.setClickListener {
+                Log.d("clickListener", getItem(adapterPosition).movieNm)
             }
         }
 
         fun bind(data: DailyBoxOffice) {
+            itemBinding.data = data
+
             itemBinding.tvTitle.text = data.movieNm
 
             itemBinding.ivThumb.load(
@@ -79,25 +56,20 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.PostHolder>() {
         }
     }
 
-    class PostDiffUtil(
-        private val oldList: List<DailyBoxOffice>,
-        private val currentList: List<DailyBoxOffice>
-    ) :
-        DiffUtil.Callback() {
-        override fun getOldListSize(): Int = oldList.size
-        override fun getNewListSize(): Int = currentList.size
+    private class PostDiffUtilCallback : DiffUtil.ItemCallback<DailyBoxOffice>() {
 
-        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition].movieCd == currentList[newItemPosition].movieCd
+        override fun areItemsTheSame(
+            oldItem: DailyBoxOffice,
+            newItem: DailyBoxOffice
+        ): Boolean {
+            return oldItem.movieCd == newItem.movieCd
         }
 
-        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition] == currentList[newItemPosition]
+        override fun areContentsTheSame(
+            oldItem: DailyBoxOffice,
+            newItem: DailyBoxOffice
+        ): Boolean {
+            return oldItem.movieCd == newItem.movieCd
         }
-
-//        override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
-//            return super.getChangePayload(oldItemPosition, newItemPosition)
-//        }
-
     }
 }

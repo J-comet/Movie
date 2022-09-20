@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         viewModel.getPosts("20220909")
 
         viewModel.posts.observe(this, Observer {
-            postAdapter.setList(it)
+            postAdapter.submitList(it)
         })
     }
 
@@ -43,12 +43,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initRecyclerView(){
-        postAdapter.setOnItemClickListener(object : PostAdapter.OnPostClickListener {
-            override fun onItemClick(data: DailyBoxOffice) {
-                Toast.makeText(this@MainActivity, data.movieNm, Toast.LENGTH_SHORT).show()
-            }
-        })
-
         binding.rvPost.apply {
             adapter = postAdapter
             layoutManager = LinearLayoutManager(this@MainActivity)
