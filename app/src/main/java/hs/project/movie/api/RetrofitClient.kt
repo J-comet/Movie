@@ -8,20 +8,15 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 
 object RetrofitClient {
 
-    val client by lazy {
-
-        val baseUrl = Config.BASE_URL
-
-        val gson = GsonBuilder().setLenient().create()
-
+    private val gson = GsonBuilder().setLenient().create()
+    private val client =
         Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl(Config.BASE_URL)
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
-    }
 
-    val postAPI by lazy {
-        client.create(PostAPI::class.java)
+    fun getInstance(): Retrofit {
+        return client
     }
 }

@@ -10,15 +10,15 @@ class PostRepository {
         val instance = PostRepository()
     }
 
-    suspend fun getPosts(targetDt: String): ResponseDailyMovies? {
-        val response = RetrofitClient.postAPI.getPosts(
-            secretKey = Config.SECRET_KEY,
-            targetDt = targetDt
-        )
-        return if (response.isSuccessful) {
-            response.body()
-        } else {
-            null
-        }
-    }
+//    suspend fun getPosts(targetDt: String): ResponseDailyMovies? {
+//        val response = RetrofitClient.postAPI.getPosts(
+//            secretKey = Config.SECRET_KEY,
+//            targetDt = targetDt
+//        )
+//        return if (response.isSuccessful) {
+//            response.body()
+//        } else {
+//            null
+//        }
+//    }
 }

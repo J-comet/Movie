@@ -12,6 +12,6 @@ interface PostAPI {
     suspend fun getPosts(
         @Query("key") secretKey: String,
         @Query("targetDt") targetDt: String
-    ): Response<ResponseDailyMovies>
+    ): ResponseDailyMovies
 
 }
