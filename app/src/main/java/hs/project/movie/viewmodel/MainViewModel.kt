@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import hs.project.movie.data.DailyBoxOffice
+import hs.project.movie.repo.NaverPostRepository
 import hs.project.movie.repo.PostRepository
 import kotlinx.coroutines.launch
 
@@ -13,6 +14,10 @@ class MainViewModel : ViewModel() {
 
     private val postRepository by lazy {
         PostRepository()
+    }
+
+    private val naverPostRepository by lazy {
+        NaverPostRepository()
     }
 
     private val _posts = MutableLiveData<List<DailyBoxOffice>>()
@@ -30,6 +35,6 @@ class MainViewModel : ViewModel() {
         } else {
             Log.e(this@MainViewModel.javaClass.name, response.message())
         }
-
     }
+
 }

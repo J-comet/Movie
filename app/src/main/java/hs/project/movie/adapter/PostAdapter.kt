@@ -11,7 +11,7 @@ import hs.project.movie.data.DailyBoxOffice
 import hs.project.movie.databinding.ItemPostBinding
 
 
-class PostAdapter : RecyclerView.Adapter<PostAdapter.ReportHolder>() {
+class PostAdapter : RecyclerView.Adapter<PostAdapter.PostHolder>() {
 
     private var list = listOf<DailyBoxOffice>()
 
@@ -25,12 +25,12 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.ReportHolder>() {
         this.eventListener = listener
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReportHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostHolder {
         val binding = ItemPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ReportHolder(binding, eventListener)
+        return PostHolder(binding, eventListener)
     }
 
-    override fun onBindViewHolder(holder: ReportHolder, position: Int) {
+    override fun onBindViewHolder(holder: PostHolder, position: Int) {
         holder.bind(list[position])
     }
 
@@ -57,7 +57,7 @@ class PostAdapter : RecyclerView.Adapter<PostAdapter.ReportHolder>() {
 //        }
 //    }
 
-    inner class ReportHolder(private val itemBinding: ItemPostBinding, listener: OnPostClickListener) :
+    inner class PostHolder(private val itemBinding: ItemPostBinding, listener: OnPostClickListener) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
         init {
