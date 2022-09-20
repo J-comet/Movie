@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="clickListener"
-            type="android.view.View.OnClickListener"/>
+            type="android.view.View.OnClickListener" />
+
         <variable
             name="data"
-            type="hs.project.movie.data.DailyBoxOffice"/>
+            type="hs.project.movie.data.DailyBoxOffice" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:onClick="@{clickListener}"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="16dp"
+        android:onClick="@{clickListener}">
 
         <ImageView
             android:id="@+id/iv_thumb"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginStart="8dp"
-            android:background="@android:color/darker_gray"
+            app:imageFromUrl="@{@string/image_url_link}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -37,8 +39,8 @@
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:lines="1"
-            android:textColor="@color/black"
             android:text="@{data.movieNm}"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_thumb"
