@@ -67,4 +67,7 @@ dependencies {
 
     // view model scope
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+
+    // require by viewmodels using
+    implementation "androidx.fragment:fragment-ktx:1.5.2"
 }
