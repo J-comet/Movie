@@ -5,33 +5,28 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import hs.project.movie.data.DailyBoxOffice
-import hs.project.movie.repo.NaverPostRepository
-import hs.project.movie.repo.PostRepository
+import hs.project.movie.data.PopularMovieItem
+import hs.project.movie.repo.MovieRepository
 import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
 
-    private val postRepository by lazy {
-        PostRepository()
+    private val movieRepository by lazy {
+        MovieRepository()
     }
 
-    private val naverPostRepository by lazy {
-        NaverPostRepository()
-    }
+    private val _popularMovies = MutableLiveData<List<PopularMovieItem>>()
+    val popularMovies : LiveData<List<PopularMovieItem>>
+        get() = _popularMovies
 
-    private val _posts = MutableLiveData<List<DailyBoxOffice>>()
-    val posts : LiveData<List<DailyBoxOffice>>
-        get() = _posts
+    fun getPopularMovies(page: Int) = viewModelScope.launch {
 
-    fun getPosts(targetDt:String) = viewModelScope.launch {
-
-        val response = postRepository.getPosts(targetDt)
+        val response = movieRepository.getPopularMovies(page)
 
         Log.d(this@MainViewModel.javaClass.name, response.toString())
 
         if (response.isSuccessful) {
-            _posts.postValue(postRepository.getPosts(targetDt = targetDt).body()?.boxOfficeResult?.dailyBoxOfficeList)
+            _popularMovies.postValue(movieRepository.getPopularMovies(page).body()?.results)
         } else {
             Log.e(this@MainViewModel.javaClass.name, response.message())
         }

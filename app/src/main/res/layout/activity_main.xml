@@ -8,22 +8,13 @@
         android:layout_height="match_parent"
         tools:context=".ui.MainActivity">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_post"
+        <TextView
+            android:id="@+id/tv_result"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_move" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_move"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="검색하러가기"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="16dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
