@@ -10,4 +10,8 @@ class MovieRepository {
     suspend fun getPopularMovies(page: Int) = client.getPopularMovies(
         page = page
     )
+
+    suspend fun getDetailPopularMovie(movieId: Int) = client.getDetailPopularMovie(
+        movieId = movieId
+    )
 }
