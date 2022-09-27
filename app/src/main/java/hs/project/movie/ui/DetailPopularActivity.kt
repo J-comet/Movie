@@ -27,7 +27,6 @@ class DetailPopularActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         id = intent.getIntExtra("id", -1)
-
         Log.d("========================= ${this.javaClass.name} =========================", "id = $id")
 
         if (id == -1) return
