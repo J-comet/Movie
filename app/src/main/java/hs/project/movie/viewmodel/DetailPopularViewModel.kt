@@ -27,7 +27,7 @@ class DetailPopularViewModel : ViewModel() {
         Log.d(this@DetailPopularViewModel.javaClass.name, response.toString())
 
         if (response.isSuccessful) {
-            _detailPopularMovie.postValue(movieRepository.getDetailPopularMovie(movieId).body())
+            _detailPopularMovie.value = movieRepository.getDetailPopularMovie(movieId).body()
         } else {
             Log.e(this@DetailPopularViewModel.javaClass.name, response.message())
         }
