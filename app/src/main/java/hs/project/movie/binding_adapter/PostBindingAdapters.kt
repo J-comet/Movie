@@ -13,12 +13,12 @@ fun bindImageFromUrl(view: ImageView, imageUrl: String?) {
     if (!imageUrl.isNullOrEmpty()) {
         view.load(Config.IMG_BASE_URL + imageUrl) {
             crossfade(true)
-            placeholder(R.drawable.ic_baseline_arrow_drop_down_circle_24)
-            error(R.drawable.ic_baseline_sync_problem_24)
+            placeholder(R.color.color_img_load)
+            error(R.color.color_img_load)
             transformations(RoundedCornersTransformation(10f))
         }
     } else {
-        view.load(R.color.teal_200) {
+        view.load(R.color.color_img_load) {
             crossfade(true)
             transformations(RoundedCornersTransformation(10f))
         }
