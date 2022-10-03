@@ -1,15 +1,17 @@
 package hs.project.movie.data.model
 
-
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class DetailMovie(
     @SerializedName("adult")
     val adult: Boolean,
     @SerializedName("backdrop_path")
     val backdropPath: String?,
-    @SerializedName("belongs_to_collection")
-    val belongsToCollection: Any?,
+//    @SerializedName("belongs_to_collection")
+//    val belongsToCollection: Any?,
     @SerializedName("budget")
     val budget: Int,
 //    @SerializedName("genres")
@@ -54,7 +56,7 @@ data class DetailMovie(
     val voteAverage: Double,
     @SerializedName("vote_count")
     val voteCount: Int
-)
+): Parcelable
 
 //data class Genre(
 //    @SerializedName("id")

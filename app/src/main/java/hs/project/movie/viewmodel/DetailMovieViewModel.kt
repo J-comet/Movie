@@ -20,20 +20,19 @@ class DetailMovieViewModel @Inject constructor(
 
     companion object {
         const val DETAIL_MOVIE = "detail_movie"
-        const val MOVIE_ID = "movie_id"
     }
 
-    val movieId = stateHandle.getMutableStateFlow(
-        MOVIE_ID,
-        0
-    )
+    init {
+        stateHandle.keys().forEach { key ->
+            Log.d("DetailMovieViewModel", "Received [$key]=[${stateHandle.get<Any>(key)}]")
+        }
+    }
 
-    private val _detailPopularMovie = stateHandle.getMutableStateFlow(
+     private val _detailPopularMovie = stateHandle.getMutableStateFlow(
         DETAIL_MOVIE,
         DetailMovie(
             adult = false,
             backdropPath = null,
-            belongsToCollection = null,
             budget = 0,
             homepage = "",
             id = 0,
@@ -55,7 +54,6 @@ class DetailMovieViewModel @Inject constructor(
         )
     )
 
-
     val detailPopularMovie: StateFlow<DetailMovie>
         get() = _detailPopularMovie.asStateFlow()
 
@@ -66,7 +64,6 @@ class DetailMovieViewModel @Inject constructor(
         Log.d(this@DetailMovieViewModel.javaClass.name, response.toString())
 
         if (response.isSuccessful) {
-            _detailPopularMovie.asStateFlow()
             _detailPopularMovie.value = repository.getDetailPopularMovie(movieId).body()!!
         } else {
             Log.e(this@DetailMovieViewModel.javaClass.name, response.message())

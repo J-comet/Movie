@@ -64,9 +64,7 @@ class DetailPopularActivity : AppCompatActivity() {
                     transformations(RoundedCornersTransformation(10f))
                 }
             }
-
             binding.tvTitle.text = it.title
-
         }
     }
 }

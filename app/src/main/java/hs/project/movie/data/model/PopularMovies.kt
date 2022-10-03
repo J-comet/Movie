@@ -1,7 +1,9 @@
 package hs.project.movie.data.model
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 data class PopularMovies(
     @SerializedName("page")
@@ -14,6 +16,7 @@ data class PopularMovies(
     val totalResults: Int
 )
 
+@Parcelize
 data class PopularMovieItem(
     @SerializedName("adult")
     val adult: Boolean,
@@ -43,4 +46,4 @@ data class PopularMovieItem(
     val voteAverage: Double,
     @SerializedName("vote_count")
     val voteCount: Int
-)
+): Parcelable
