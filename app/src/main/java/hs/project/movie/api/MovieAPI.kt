@@ -12,7 +12,6 @@ interface MovieAPI {
 
     @GET(Config.API.MOVIE_POPULAR)
     suspend fun getPopularMovies(
-        @Query("api_key") apiKey: String = Config.TM_SECRET_KEY,
         @Query("page") page: Int,
         @Query("language") language: String = "ko"
     ): Response<PopularMovies>
@@ -20,7 +19,6 @@ interface MovieAPI {
     @GET(Config.API.DETAIL_MOVIE_POPULAR + "{movieId}")
     suspend fun getDetailPopularMovie(
         @Path("movieId") movieId: Int,
-        @Query("api_key") apiKey: String = Config.TM_SECRET_KEY,
         @Query("language") language: String = "ko"
     ): Response<DetailPopularMovie>
 }
