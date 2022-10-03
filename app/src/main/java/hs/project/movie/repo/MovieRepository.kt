@@ -1,17 +1,17 @@
 package hs.project.movie.repo
 
 import hs.project.movie.api.MovieAPI
-import hs.project.movie.api.RetrofitClient
+import javax.inject.Inject
 
-class MovieRepository {
+class MovieRepository
+@Inject
+constructor(private val api: MovieAPI) {
 
-    private val client = RetrofitClient.getInstance().create(MovieAPI::class.java)
-
-    suspend fun getPopularMovies(page: Int) = client.getPopularMovies(
+    suspend fun getPopularMovies(page: Int) = api.getPopularMovies(
         page = page
     )
 
-    suspend fun getDetailPopularMovie(movieId: Int) = client.getDetailPopularMovie(
+    suspend fun getDetailPopularMovie(movieId: Int) = api.getDetailPopularMovie(
         movieId = movieId
     )
 }

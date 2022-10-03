@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -38,10 +39,6 @@ android {
 
 dependencies {
 
-    def gson_version = "2.9.0"
-    def retrofit_version = "2.9.0"
-    def coil_version = "2.2.1"
-
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.6.1'
@@ -72,4 +69,10 @@ dependencies {
 
     // require by viewmodels using
     implementation "androidx.fragment:fragment-ktx:1.5.2"
+
+    //dagger-hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+//    implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
+//    kapt "androidx.hilt:hilt-compiler:1.0.0-beta01"
 }

@@ -6,12 +6,14 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
 import coil.transform.RoundedCornersTransformation
+import dagger.hilt.android.AndroidEntryPoint
 import hs.project.movie.Config
 import hs.project.movie.R
 import hs.project.movie.data.DetailPopularMovie
 import hs.project.movie.databinding.ActivityDetailPopularBinding
 import hs.project.movie.viewmodel.DetailPopularViewModel
 
+@AndroidEntryPoint
 class DetailPopularActivity : AppCompatActivity() {
 
     private val binding by lazy {
@@ -31,7 +33,7 @@ class DetailPopularActivity : AppCompatActivity() {
 
         if (id == -1) return
 
-        viewModel.getDetailPopularMovie(id)
+//        viewModel.getDetailPopularMovie(id)
 
         viewModel.detailPopularMovie.observe(this) { detailData ->
             setData(detailData)
