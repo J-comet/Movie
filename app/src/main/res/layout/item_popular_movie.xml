@@ -11,7 +11,7 @@
 
         <variable
             name="data"
-            type="hs.project.movie.data.PopularMovieItem" />
+            type="hs.project.movie.data.model.PopularMovieItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

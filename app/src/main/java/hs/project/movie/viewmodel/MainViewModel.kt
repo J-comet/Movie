@@ -5,17 +5,15 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import hs.project.movie.data.PopularMovieItem
-import hs.project.movie.repo.MovieRepository
+import hs.project.movie.data.model.PopularMovieItem
+import hs.project.movie.data.repository.MovieRepository
 import hs.project.movie.utils.StateFlowUtil.getMutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel
-@Inject
-constructor(
+class MainViewModel @Inject constructor(
     private val stateHandle: SavedStateHandle,
     private val repository: MovieRepository
 ) : ViewModel() {
@@ -37,7 +35,7 @@ constructor(
         }
     }
 
-    fun popularMovies() = viewModelScope.launch {
+    private fun popularMovies() = viewModelScope.launch {
         val response = repository.getPopularMovies(page = 1)
 
         if (response.isSuccessful) {
@@ -46,22 +44,5 @@ constructor(
             Log.e(this@MainViewModel.javaClass.name, "error = ${response.errorBody()}")
         }
     }
-
-    /*private val _popularMovies = MutableLiveData<List<PopularMovieItem>>()
-    val popularMovies: LiveData<List<PopularMovieItem>>
-        get() = _popularMovies
-
-    fun getPopularMovies(page: Int) = viewModelScope.launch {
-
-        val response = repository.getPopularMovies(page)
-
-        Log.d(this@MainViewModel.javaClass.name, response.toString())
-
-        if (response.isSuccessful) {
-            _popularMovies.postValue(repository.getPopularMovies(page).body()?.results)
-        } else {
-            Log.e(this@MainViewModel.javaClass.name, response.message())
-        }
-    }*/
 
 }

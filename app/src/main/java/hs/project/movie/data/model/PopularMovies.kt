@@ -1,4 +1,4 @@
-package hs.project.movie.data
+package hs.project.movie.data.model
 
 
 import com.google.gson.annotations.SerializedName

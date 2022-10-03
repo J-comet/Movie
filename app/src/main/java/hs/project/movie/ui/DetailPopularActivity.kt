@@ -9,7 +9,7 @@ import coil.transform.RoundedCornersTransformation
 import dagger.hilt.android.AndroidEntryPoint
 import hs.project.movie.Config
 import hs.project.movie.R
-import hs.project.movie.data.DetailPopularMovie
+import hs.project.movie.data.model.DetailPopularMovie
 import hs.project.movie.databinding.ActivityDetailPopularBinding
 import hs.project.movie.viewmodel.DetailPopularViewModel
 
