@@ -1,7 +1,7 @@
 package hs.project.movie.api
 
 import hs.project.movie.Config
-import hs.project.movie.data.model.DetailPopularMovie
+import hs.project.movie.data.model.DetailMovie
 import hs.project.movie.data.model.PopularMovies
 import retrofit2.Response
 import retrofit2.http.GET
@@ -20,5 +20,5 @@ interface ApiService {
     suspend fun getDetailPopularMovie(
         @Path("movieId") movieId: Int,
         @Query("language") language: String = "ko"
-    ): Response<DetailPopularMovie>
+    ): Response<DetailMovie>
 }

@@ -3,7 +3,7 @@ package hs.project.movie.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class DetailPopularMovie(
+data class DetailMovie(
     @SerializedName("adult")
     val adult: Boolean,
     @SerializedName("backdrop_path")
@@ -12,8 +12,8 @@ data class DetailPopularMovie(
     val belongsToCollection: Any?,
     @SerializedName("budget")
     val budget: Int,
-    @SerializedName("genres")
-    val genres: List<Genre>,
+//    @SerializedName("genres")
+//    val genres: List<Genre>,
     @SerializedName("homepage")
     val homepage: String?,
     @SerializedName("id")
@@ -30,18 +30,18 @@ data class DetailPopularMovie(
     val popularity: Double,
     @SerializedName("poster_path")
     val posterPath: String?,
-    @SerializedName("production_companies")
-    val productionCompanies: List<ProductionCompany>,
-    @SerializedName("production_countries")
-    val productionCountries: List<ProductionCountry>,
+//    @SerializedName("production_companies")
+//    val productionCompanies: List<ProductionCompany>,
+//    @SerializedName("production_countries")
+//    val productionCountries: List<ProductionCountry>,
     @SerializedName("release_date")
     val releaseDate: String,
     @SerializedName("revenue")
     val revenue: Double?,
     @SerializedName("runtime")
     val runtime: Int?,
-    @SerializedName("spoken_languages")
-    val spokenLanguages: List<SpokenLanguage>,
+//    @SerializedName("spoken_languages")
+//    val spokenLanguages: List<SpokenLanguage>,
     @SerializedName("status")
     val status: String,
     @SerializedName("tagline")
@@ -56,36 +56,36 @@ data class DetailPopularMovie(
     val voteCount: Int
 )
 
-data class Genre(
-    @SerializedName("id")
-    val id: Int,
-    @SerializedName("name")
-    val name: String
-)
+//data class Genre(
+//    @SerializedName("id")
+//    val id: Int,
+//    @SerializedName("name")
+//    val name: String
+//)
 
-data class ProductionCompany(
-    @SerializedName("id")
-    val id: Int,
-    @SerializedName("logo_path")
-    val logoPath: String?,
-    @SerializedName("name")
-    val name: String,
-    @SerializedName("origin_country")
-    val originCountry: String
-)
-
-data class ProductionCountry(
-    @SerializedName("iso_3166_1")
-    val iso31661: String,
-    @SerializedName("name")
-    val name: String
-)
-
-data class SpokenLanguage(
-    @SerializedName("english_name")
-    val englishName: String,
-    @SerializedName("iso_639_1")
-    val iso6391: String,
-    @SerializedName("name")
-    val name: String
-)
+//data class ProductionCompany(
+//    @SerializedName("id")
+//    val id: Int,
+//    @SerializedName("logo_path")
+//    val logoPath: String?,
+//    @SerializedName("name")
+//    val name: String,
+//    @SerializedName("origin_country")
+//    val originCountry: String
+//)
+//
+//data class ProductionCountry(
+//    @SerializedName("iso_3166_1")
+//    val iso31661: String,
+//    @SerializedName("name")
+//    val name: String
+//)
+//
+//data class SpokenLanguage(
+//    @SerializedName("english_name")
+//    val englishName: String,
+//    @SerializedName("iso_639_1")
+//    val iso6391: String,
+//    @SerializedName("name")
+//    val name: String
+//)

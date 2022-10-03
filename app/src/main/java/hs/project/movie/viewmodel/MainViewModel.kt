@@ -8,7 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import hs.project.movie.data.model.PopularMovieItem
 import hs.project.movie.data.repository.MovieRepository
 import hs.project.movie.utils.StateFlowUtil.getMutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,13 +27,18 @@ class MainViewModel @Inject constructor(
         emptyList<PopularMovieItem>()
     )
     val popularMovies: StateFlow<List<PopularMovieItem>>
-        get() = _popularMovies.asStateFlow()
-
-    init {
-        if (popularMovies.value.isEmpty()) {
-            popularMovies()
-        }
-    }
+        get() = _popularMovies
+            .asStateFlow()
+            .onSubscription {
+                if (popularMovies.value.isEmpty()) {
+                    popularMovies()
+                }
+            }
+            .stateIn(
+                viewModelScope,
+                SharingStarted.WhileSubscribed(5_000),
+                emptyList()
+            )
 
     private fun popularMovies() = viewModelScope.launch {
         val response = repository.getPopularMovies(page = 1)
