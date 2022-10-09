@@ -1,8 +1,8 @@
 package hs.project.movie.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -38,14 +38,29 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
     }
 
-    private fun initRecyclerView(){
+    private fun initRecyclerView() {
         binding.rvMoive.apply {
             adapter = popularAdapter
             itemAnimator = DefaultItemAnimator()
             setHasFixedSize(true)
         }
     }
+
+//    private fun popularMoviesHandle(state: State) {
+//        when (state) {
+//            is State.Loading -> {
+//                binding.loading.isVisible = true
+//            }
+//            is State.Success -> {
+//                popularAdapter.submitList(state.data as List<PopularMovieItem>)
+//                binding.loading.isVisible = false
+//            }
+//            is State.Error -> {
+//                Toast.makeText(this, "데이터를 불러오는데 실패했습니다", Toast.LENGTH_SHORT).show()
+//                binding.loading.isVisible = false
+//            }
+//        }
+//    }
 }
