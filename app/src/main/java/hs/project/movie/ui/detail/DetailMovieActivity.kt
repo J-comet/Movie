@@ -15,6 +15,9 @@ import hs.project.movie.R
 import hs.project.movie.data.model.DetailMovie
 import hs.project.movie.databinding.ActivityDetailMovieBinding
 import kotlinx.coroutines.launch
+import java.lang.StringBuilder
+import kotlin.math.floor
+import kotlin.math.round
 
 @AndroidEntryPoint
 class DetailMovieActivity : AppCompatActivity() {
@@ -36,6 +39,7 @@ class DetailMovieActivity : AppCompatActivity() {
 
         if (id == -1) return
 
+        init()
         viewModel.getDetailPopularMovie(id)
 
         lifecycleScope.launch {
@@ -47,8 +51,14 @@ class DetailMovieActivity : AppCompatActivity() {
         }
     }
 
+    private fun init(){
+        binding.ivBack.setOnClickListener { backPressed() }
+    }
+
     private fun setData(detailData: DetailMovie){
         detailData.also {
+
+            Log.d("detail", "$it")
 
             if (!it.posterPath.isNullOrEmpty()) {
                 binding.ivThumb.load(Config.IMG_BASE_URL + it.posterPath) {
@@ -64,6 +74,26 @@ class DetailMovieActivity : AppCompatActivity() {
                 }
             }
             binding.tvTitle.text = it.title
+            binding.tvDate.text = it.releaseDate
+
+            binding.tvGenres.text = "정보 없음"
+            if (it.genres.isNotEmpty()) {
+                val sb = StringBuilder()
+                sb.append("| ")
+                it.genres.forEach { genre ->
+                    sb.append(genre.name)
+                    sb.append(" | ")
+                }
+                binding.tvGenres.text = sb.toString()
+            }
+
+            binding.tvRuntime.text = "${it.runtime}분"
+            binding.tvVoteAverage.text = "평점 ${it.voteAverage}"
+            binding.tvOverview.text = it.overview
         }
+    }
+
+    private fun backPressed() {
+        finish()
     }
 }

@@ -30,28 +30,7 @@ class DetailMovieViewModel @Inject constructor(
 
      private val _detailPopularMovie = stateHandle.getMutableStateFlow(
         DETAIL_MOVIE,
-        DetailMovie(
-            adult = false,
-            backdropPath = null,
-            budget = 0,
-            homepage = "",
-            id = 0,
-            imdbId = "",
-            originalLanguage = "",
-            originalTitle = "",
-            overview = "",
-            popularity = 0.0,
-            posterPath = "",
-            releaseDate = "",
-            revenue = 0.0,
-            runtime = 0,
-            status = "",
-            tagline = "",
-            title = "",
-            video = false,
-            voteAverage = 0.0,
-            voteCount = 0
-        )
+        DetailMovie()
     )
 
     val detailPopularMovie: StateFlow<DetailMovie>
