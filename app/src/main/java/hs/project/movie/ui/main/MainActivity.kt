@@ -1,4 +1,4 @@
-package hs.project.movie.ui
+package hs.project.movie.ui.main
 
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import dagger.hilt.android.AndroidEntryPoint
 import hs.project.movie.adapter.PopularMovieAdapter
 import hs.project.movie.databinding.ActivityMainBinding
-import hs.project.movie.viewmodel.MainViewModel
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint

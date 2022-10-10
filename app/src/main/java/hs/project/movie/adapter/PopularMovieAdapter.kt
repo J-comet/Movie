@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import hs.project.movie.data.model.PopularMovieItem
 import hs.project.movie.databinding.ItemPopularMovieBinding
-import hs.project.movie.ui.DetailPopularActivity
+import hs.project.movie.ui.detail.DetailMovieActivity
 
 class PopularMovieAdapter : ListAdapter<PopularMovieItem, PopularMovieAdapter.PopularHolder>(
     PopularMovieDiffUtilCallback()
@@ -36,7 +36,7 @@ class PopularMovieAdapter : ListAdapter<PopularMovieItem, PopularMovieAdapter.Po
         init {
             itemBinding.setClickListener {
                 Log.d("clickListener", currentList[adapterPosition].title)
-                val intent = Intent(itemBinding.root.context, DetailPopularActivity::class.java)
+                val intent = Intent(itemBinding.root.context, DetailMovieActivity::class.java)
                 intent.putExtra("id", currentList[adapterPosition].id)
                 ContextCompat.startActivity(itemBinding.root.context, intent, null)
             }

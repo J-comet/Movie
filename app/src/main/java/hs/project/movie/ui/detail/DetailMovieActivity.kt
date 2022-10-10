@@ -1,4 +1,4 @@
-package hs.project.movie.ui
+package hs.project.movie.ui.detail
 
 import android.os.Bundle
 import android.util.Log
@@ -13,15 +13,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import hs.project.movie.Config
 import hs.project.movie.R
 import hs.project.movie.data.model.DetailMovie
-import hs.project.movie.databinding.ActivityDetailPopularBinding
-import hs.project.movie.viewmodel.DetailMovieViewModel
+import hs.project.movie.databinding.ActivityDetailMovieBinding
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class DetailPopularActivity : AppCompatActivity() {
+class DetailMovieActivity : AppCompatActivity() {
 
     private val binding by lazy {
-        ActivityDetailPopularBinding.inflate(layoutInflater)
+        ActivityDetailMovieBinding.inflate(layoutInflater)
     }
 
     private var id = -1

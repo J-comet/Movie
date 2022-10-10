@@ -1,4 +1,4 @@
-package hs.project.movie.viewmodel
+package hs.project.movie.ui.detail
 
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
