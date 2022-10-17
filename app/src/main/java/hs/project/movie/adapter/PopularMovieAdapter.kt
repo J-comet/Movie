@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +13,7 @@ import hs.project.movie.data.model.PopularMovieItem
 import hs.project.movie.databinding.ItemPopularMovieBinding
 import hs.project.movie.ui.detail.DetailMovieActivity
 
-class PopularMovieAdapter : ListAdapter<PopularMovieItem, PopularMovieAdapter.PopularHolder>(
+class PopularMovieAdapter : PagingDataAdapter<PopularMovieItem, PopularMovieAdapter.PopularHolder>(
     PopularMovieDiffUtilCallback()
 ) {
 
@@ -27,22 +28,24 @@ class PopularMovieAdapter : ListAdapter<PopularMovieItem, PopularMovieAdapter.Po
     }
 
     override fun onBindViewHolder(holder: PopularHolder, position: Int) {
-        holder.bind(currentList[holder.adapterPosition])
+//        holder.bind(currentList[holder.adapterPosition])
+        val item = getItem(position)
+        holder.bind(item)
     }
 
     inner class PopularHolder(private val itemBinding: ItemPopularMovieBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
-        init {
+        fun bind(data: PopularMovieItem?) {
+            if (data == null) {
+                return
+            }
             itemBinding.setClickListener {
-                Log.d("clickListener", currentList[adapterPosition].title)
+                Log.d("clickListener", data.title)
                 val intent = Intent(itemBinding.root.context, DetailMovieActivity::class.java)
-                intent.putExtra("id", currentList[adapterPosition].id)
+                intent.putExtra("id", data.id)
                 ContextCompat.startActivity(itemBinding.root.context, intent, null)
             }
-        }
-
-        fun bind(data: PopularMovieItem) {
             itemBinding.data = data
             Log.e("data", "data = $data")
         }

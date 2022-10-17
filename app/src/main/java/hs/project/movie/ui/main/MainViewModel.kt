@@ -1,59 +1,32 @@
 package hs.project.movie.ui.main
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hs.project.movie.data.model.PopularMovieItem
 import hs.project.movie.data.repository.MovieRepository
-import hs.project.movie.utils.StateFlowUtil.getMutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.onSubscription
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    stateHandle: SavedStateHandle,
     private val repository: MovieRepository
 ) : ViewModel() {
 
     companion object {
-        private const val POPULAR_MOVIES = "popularMovies"
+        private const val NETWORK_PAGE_SIZE = 20
     }
 
-    private val _popularMovies = stateHandle.getMutableStateFlow(
-        POPULAR_MOVIES,
-        emptyList<PopularMovieItem>()
+    val popularMovies: Flow<PagingData<PopularMovieItem>> = Pager(
+        config = PagingConfig(pageSize = NETWORK_PAGE_SIZE, enablePlaceholders = false),
+        pagingSourceFactory = { repository.popularMoviesPagingSource() }
     )
-
-    val popularMovies: StateFlow<List<PopularMovieItem>>
-        get() = _popularMovies
-            .asStateFlow()
-            .onSubscription {
-                if (popularMovies.value.isEmpty()) {
-                    popularMovies()
-                }
-            }
-            .stateIn(
-                viewModelScope,
-                SharingStarted.WhileSubscribed(5_000),
-                emptyList()
-            )
-
-
-    private fun popularMovies() = viewModelScope.launch {
-        val response = repository.getPopularMovies(page = 1)
-
-        if (response.isSuccessful) {
-            _popularMovies.value = response.body()?.results ?: emptyList()
-        } else {
-            _popularMovies.value = emptyList()
-            Log.e(this@MainViewModel.javaClass.name, "error = ${response.errorBody()}")
-        }
-    }
+        .flow
+        .cachedIn(viewModelScope)
 
 }

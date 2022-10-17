@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import dagger.hilt.android.AndroidEntryPoint
 import hs.project.movie.adapter.PopularMovieAdapter
 import hs.project.movie.databinding.ActivityMainBinding
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -32,8 +33,8 @@ class MainActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.popularMovies.collect {
-                    popularAdapter.submitList(it)
+                viewModel.popularMovies.collectLatest {
+                    popularAdapter.submitData(it)
                 }
             }
         }
