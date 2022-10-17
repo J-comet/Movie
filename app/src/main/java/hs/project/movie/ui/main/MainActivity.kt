@@ -7,7 +7,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import hs.project.movie.adapter.LoadStateAdapter
 import hs.project.movie.adapter.PopularMovieAdapter
 import hs.project.movie.databinding.ActivityMainBinding
 import kotlinx.coroutines.flow.collectLatest
@@ -41,8 +43,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
+
+        val footerAdapter = LoadStateAdapter { popularAdapter.retry() }
+        val gridLayoutManager = GridLayoutManager(this, 3)
+
         binding.rvMoive.apply {
-            adapter = popularAdapter
+            adapter =
+                popularAdapter.withLoadStateFooter(footer = footerAdapter)
+            layoutManager = gridLayoutManager
+            gridLayoutManager.spanSizeLookup =  object : GridLayoutManager.SpanSizeLookup() {  // Gridlayouamanger 때 Center 맞추기위함
+                override fun getSpanSize(position: Int): Int {
+                    return if ((position == popularAdapter.itemCount) && footerAdapter.itemCount > 0) {
+                        3
+                    } else {
+                        1
+                    }
+                }
+            }
             itemAnimator = DefaultItemAnimator()
             setHasFixedSize(true)
         }
