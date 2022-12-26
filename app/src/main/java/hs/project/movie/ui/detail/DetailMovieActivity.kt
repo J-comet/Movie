@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -39,6 +40,11 @@ class DetailMovieActivity : AppCompatActivity() {
         init()
         viewModel.getDetailPopularMovie(id)
 
+        ViewCompat.setTransitionName(
+            binding.ivThumb,
+            resources.getString(R.string.transition_movie_image)
+        )
+
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.detailPopularMovie.collect { detailData ->
@@ -48,25 +54,25 @@ class DetailMovieActivity : AppCompatActivity() {
         }
     }
 
-    private fun init(){
+    private fun init() {
         binding.ivBack.setOnClickListener { backPressed() }
     }
 
-    private fun setData(detailData: DetailMovie){
+    private fun setData(detailData: DetailMovie) {
         detailData.also {
 
             Log.d("detail", "$it")
 
             if (!it.posterPath.isNullOrEmpty()) {
                 binding.ivThumb.load(Config.IMG_BASE_URL + it.posterPath) {
-                    crossfade(true)
+//                    crossfade(true)
                     placeholder(R.color.color_img_load)
                     error(R.color.color_img_load)
                     transformations(RoundedCornersTransformation(10f))
                 }
             } else {
                 binding.ivThumb.load(R.color.color_img_load) {
-                    crossfade(true)
+//                    crossfade(true)
                     transformations(RoundedCornersTransformation(10f))
                 }
             }
