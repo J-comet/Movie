@@ -1,7 +1,5 @@
 package hs.project.movie.adapter
 
-import android.os.SystemClock
-import android.util.Log
 import android.util.Pair
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import hs.project.movie.data.model.PopularMovieItem
 import hs.project.movie.databinding.ItemPopularMovieBinding
 import hs.project.movie.utils.setOnClickListener
+import timber.log.Timber
 
 class PopularMovieAdapter : PagingDataAdapter<PopularMovieItem, PopularMovieAdapter.PopularHolder>(
     PopularMovieDiffUtilCallback()
@@ -56,7 +55,7 @@ class PopularMovieAdapter : PagingDataAdapter<PopularMovieItem, PopularMovieAdap
             itemBinding.data = data
 
             itemBinding.root.setOnClickListener(600) {
-                Log.d("clickListener", data.title)
+                Timber.d(data.title)
                 val pos = bindingAdapterPosition
                 if (pos != RecyclerView.NO_POSITION) {
                     eventListener?.onItemClick(Pair(itemBinding.ivThumb,itemBinding.ivThumb.transitionName), data)

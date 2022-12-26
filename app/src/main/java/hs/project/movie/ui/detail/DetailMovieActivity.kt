@@ -1,7 +1,6 @@
 package hs.project.movie.ui.detail
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -15,6 +14,7 @@ import hs.project.movie.data.model.DetailMovie
 import hs.project.movie.databinding.ActivityDetailMovieBinding
 import hs.project.movie.ui.base.BindActivity
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 class DetailMovieActivity : BindActivity<ActivityDetailMovieBinding>(R.layout.activity_detail_movie) {
@@ -45,7 +45,7 @@ class DetailMovieActivity : BindActivity<ActivityDetailMovieBinding>(R.layout.ac
     private fun setData(detailData: DetailMovie) {
         detailData.also {
 
-            Log.d("detail", "$it")
+            Timber.d("detail = $it")
 
             if (!it.posterPath.isNullOrEmpty()) {
                 binding.ivThumb.load(Config.IMG_BASE_URL + it.posterPath) {

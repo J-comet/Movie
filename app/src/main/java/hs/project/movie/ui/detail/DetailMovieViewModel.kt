@@ -1,6 +1,5 @@
 package hs.project.movie.ui.detail
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,6 +9,7 @@ import hs.project.movie.data.repository.MovieRepository
 import hs.project.movie.utils.StateFlowUtil.getMutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,7 +26,7 @@ class DetailMovieViewModel @Inject constructor(
 
     init {
         stateHandle.keys().forEach { key ->
-            Log.d("DetailMovieViewModel", "Received [$key]=[${stateHandle.get<Any>(key)}]")
+            Timber.d("Received [$key]=[${stateHandle.get<Any>(key)}]")
         }
         getDetailPopularMovie()
     }
@@ -44,12 +44,12 @@ class DetailMovieViewModel @Inject constructor(
         if (movieId == -1) return@launch
         val response = repository.getDetailPopularMovie(movieId)
 
-        Log.d(this@DetailMovieViewModel.javaClass.name, response.toString())
+        Timber.d(this@DetailMovieViewModel.javaClass.name, response.toString())
 
         if (response.isSuccessful) {
             _detailPopularMovie.value = repository.getDetailPopularMovie(movieId).body()!!
         } else {
-            Log.e(this@DetailMovieViewModel.javaClass.name, response.message())
+            Timber.e(this@DetailMovieViewModel.javaClass.name, response.message())
         }
     }
 

@@ -69,8 +69,8 @@ data class Genre(
 //data class ProductionCompany(
 //    @SerializedName("id")
 //    val id: Int,
-//    @SerializedName("logo_path")
-//    val logoPath: String?,
+//    @SerializedName("Timbero_path")
+//    val TimberoPath: String?,
 //    @SerializedName("name")
 //    val name: String,
 //    @SerializedName("origin_country")
