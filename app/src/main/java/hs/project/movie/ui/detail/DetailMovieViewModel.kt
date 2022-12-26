@@ -22,10 +22,13 @@ class DetailMovieViewModel @Inject constructor(
         const val DETAIL_MOVIE = "detail_movie"
     }
 
+    private val movieId: Int = stateHandle[DetailMovieActivity.MOVIE_ID] ?: -1
+
     init {
         stateHandle.keys().forEach { key ->
             Log.d("DetailMovieViewModel", "Received [$key]=[${stateHandle.get<Any>(key)}]")
         }
+        getDetailPopularMovie()
     }
 
      private val _detailPopularMovie = stateHandle.getMutableStateFlow(
@@ -36,8 +39,9 @@ class DetailMovieViewModel @Inject constructor(
     val detailPopularMovie: StateFlow<DetailMovie>
         get() = _detailPopularMovie.asStateFlow()
 
-    fun getDetailPopularMovie(movieId: Int) = viewModelScope.launch {
+    private fun getDetailPopularMovie() = viewModelScope.launch {
 
+        if (movieId == -1) return@launch
         val response = repository.getDetailPopularMovie(movieId)
 
         Log.d(this@DetailMovieViewModel.javaClass.name, response.toString())

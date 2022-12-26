@@ -20,30 +20,20 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class DetailMovieActivity : AppCompatActivity() {
 
+    companion object {
+        const val MOVIE_ID = "movie_id"
+    }
+
     private val binding by lazy {
         ActivityDetailMovieBinding.inflate(layoutInflater)
     }
-
-    private var id = -1
 
     private val viewModel by viewModels<DetailMovieViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
-        id = intent.getIntExtra("id", -1)
-        Log.d("========================= ${this.javaClass.name} =========================", "id = $id")
-
-        if (id == -1) return
-
         init()
-        viewModel.getDetailPopularMovie(id)
-
-//        ViewCompat.setTransitionName(
-//            binding.ivThumb,
-//            resources.getString(R.string.transition_movie_image)
-//        )
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {

@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         popularAdapter.setOnItemClickListener(object : PopularMovieAdapter.OnItemClickListener {
             override fun onItemClick(pair: Pair<View, String>, data: PopularMovieItem) {
                 val intent = Intent(this@MainActivity, DetailMovieActivity::class.java)
-                intent.putExtra("id", data.id)
+                intent.putExtra(DetailMovieActivity.MOVIE_ID, data.id)
                 val options =
                     ActivityOptions.makeSceneTransitionAnimation(this@MainActivity, pair)
                 startActivity(intent, options.toBundle())
