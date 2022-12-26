@@ -40,10 +40,10 @@ class DetailMovieActivity : AppCompatActivity() {
         init()
         viewModel.getDetailPopularMovie(id)
 
-        ViewCompat.setTransitionName(
-            binding.ivThumb,
-            resources.getString(R.string.transition_movie_image)
-        )
+//        ViewCompat.setTransitionName(
+//            binding.ivThumb,
+//            resources.getString(R.string.transition_movie_image)
+//        )
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
