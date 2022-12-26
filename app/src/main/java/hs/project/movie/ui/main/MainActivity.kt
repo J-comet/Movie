@@ -6,27 +6,25 @@ import android.os.Bundle
 import android.util.Pair
 import android.view.View
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import hs.project.movie.R
 import hs.project.movie.adapter.LoadStateAdapter
 import hs.project.movie.adapter.PopularMovieAdapter
 import hs.project.movie.data.model.PopularMovieItem
 import hs.project.movie.databinding.ActivityMainBinding
+import hs.project.movie.ui.base.BindActivity
 import hs.project.movie.ui.detail.DetailMovieActivity
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : BindActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    private val binding by lazy {
-        ActivityMainBinding.inflate(layoutInflater)
-    }
     private val viewModel by viewModels<MainViewModel>()
 
     private val popularAdapter by lazy {
@@ -35,7 +33,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
 
         initRecyclerView()
 
@@ -46,6 +43,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun init() {
+        initRecyclerView()
     }
 
     private fun initRecyclerView() {

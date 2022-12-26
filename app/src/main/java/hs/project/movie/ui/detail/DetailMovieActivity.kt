@@ -3,8 +3,6 @@ package hs.project.movie.ui.detail
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -15,25 +13,20 @@ import hs.project.movie.Config
 import hs.project.movie.R
 import hs.project.movie.data.model.DetailMovie
 import hs.project.movie.databinding.ActivityDetailMovieBinding
+import hs.project.movie.ui.base.BindActivity
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class DetailMovieActivity : AppCompatActivity() {
+class DetailMovieActivity : BindActivity<ActivityDetailMovieBinding>(R.layout.activity_detail_movie) {
 
     companion object {
         const val MOVIE_ID = "movie_id"
-    }
-
-    private val binding by lazy {
-        ActivityDetailMovieBinding.inflate(layoutInflater)
     }
 
     private val viewModel by viewModels<DetailMovieViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
-        init()
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -44,9 +37,10 @@ class DetailMovieActivity : AppCompatActivity() {
         }
     }
 
-    private fun init() {
+    override fun init() {
         binding.ivBack.setOnClickListener { backPressed() }
     }
+
 
     private fun setData(detailData: DetailMovie) {
         detailData.also {
