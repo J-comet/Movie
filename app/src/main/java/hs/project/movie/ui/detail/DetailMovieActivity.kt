@@ -15,9 +15,6 @@ import hs.project.movie.R
 import hs.project.movie.data.model.DetailMovie
 import hs.project.movie.databinding.ActivityDetailMovieBinding
 import kotlinx.coroutines.launch
-import java.lang.StringBuilder
-import kotlin.math.floor
-import kotlin.math.round
 
 @AndroidEntryPoint
 class DetailMovieActivity : AppCompatActivity() {

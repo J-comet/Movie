@@ -6,10 +6,6 @@
     <data>
 
         <variable
-            name="clickListener"
-            type="android.view.View.OnClickListener" />
-
-        <variable
             name="data"
             type="hs.project.movie.data.model.PopularMovieItem" />
     </data>
@@ -19,14 +15,14 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="4dp"
-        android:layout_marginStart="4dp"
-        android:onClick="@{clickListener}">
+        android:layout_marginStart="4dp">
 
         <ImageView
             android:id="@+id/iv_thumb"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
+            android:transitionName="@string/transition_movie_image"
             app:imageFromUrl="@{data.posterPath}"
             app:layout_constraintDimensionRatio="0.65:1"
             app:layout_constraintEnd_toEndOf="parent"
