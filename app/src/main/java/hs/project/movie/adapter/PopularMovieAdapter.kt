@@ -47,20 +47,20 @@ class PopularMovieAdapter : PagingDataAdapter<PopularMovieItem, PopularMovieAdap
         private val eventListener: OnItemClickListener?
     ) : RecyclerView.ViewHolder(itemBinding.root) {
 
+        init {
+            itemBinding.root.setOnClickListener(600) {
+                val pos = bindingAdapterPosition.takeIf { it != RecyclerView.NO_POSITION } ?: return@setOnClickListener
+                getItem(pos)?.let { data ->
+                    eventListener?.onItemClick(Pair(itemBinding.ivThumb,itemBinding.ivThumb.transitionName), data)
+                }
+            }
+        }
+
         fun bind(data: PopularMovieItem?) {
             if (data == null) {
                 return
             }
-
             itemBinding.data = data
-
-            itemBinding.root.setOnClickListener(600) {
-                Timber.d(data.title)
-                val pos = bindingAdapterPosition
-                if (pos != RecyclerView.NO_POSITION) {
-                    eventListener?.onItemClick(Pair(itemBinding.ivThumb,itemBinding.ivThumb.transitionName), data)
-                }
-            }
         }
     }
 
