@@ -49,14 +49,14 @@ class DetailMovieActivity : BindActivity<ActivityDetailMovieBinding>(R.layout.ac
 
             if (!it.posterPath.isNullOrEmpty()) {
                 binding.ivThumb.load(Config.IMG_BASE_URL + it.posterPath) {
-//                    crossfade(true)
+                    crossfade(true)
                     placeholder(R.color.color_img_load)
                     error(R.color.color_img_load)
                     transformations(RoundedCornersTransformation(10f))
                 }
             } else {
                 binding.ivThumb.load(R.color.color_img_load) {
-//                    crossfade(true)
+                    crossfade(true)
                     transformations(RoundedCornersTransformation(10f))
                 }
             }

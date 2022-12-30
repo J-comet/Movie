@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import hs.project.movie.data.model.PopularMovieItem
 import hs.project.movie.databinding.ItemPopularMovieBinding
 import hs.project.movie.utils.setOnClickListener
-import timber.log.Timber
 
 class PopularMovieAdapter : PagingDataAdapter<PopularMovieItem, PopularMovieAdapter.PopularHolder>(
     PopularMovieDiffUtilCallback()
