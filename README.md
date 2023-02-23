@@ -5,6 +5,8 @@
 
 
 ### Used
+ * TMDb API (The movie database api)
+
  * Paging3
  * ViewModel
  * Databinding
