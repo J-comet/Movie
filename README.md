@@ -8,6 +8,7 @@
  * Paging3
  * ViewModel
  * Databinding
+ * Retrofit
  * Gson
  * Coil
  * Hilt
